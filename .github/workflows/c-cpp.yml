@@ -17,10 +17,10 @@ jobs:
       run: git clone https://github.com/facebookresearch/fastText fb
     - name: build fb
       run: cd fb && make && ls
-    - name: cd
-      run: cd fastText && ls && make
     - name: copy fb
       run: find fb -name '*.o' -exec mv {} fastText/obj \;
+    - name: cd
+      run: cd fastText && ls && make
     - name: zip
       run: zip -r complete.zip fastText
     - uses: xresloader/upload-to-github-release@master
