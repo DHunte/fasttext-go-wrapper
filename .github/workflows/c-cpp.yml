@@ -16,7 +16,7 @@ jobs:
     - name: clone fb
       run: git clone https://github.com/facebookresearch/fastText fb
     - name: build fb
-      run: cd fb && make && ls
+      run: cd fb && make && ls && cd .. && mkdir fastText/obj
     - name: copy fb
       run: find fb -name '*.o' -exec mv {} fastText/obj \;
     - name: cd
