@@ -14,5 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cd
-      run: cd fastText && ls && make
+      run: cd fastText && ls && make 
+    - name: Create Release
+      id: create_release
+      uses: zendesk/action-create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      
 
