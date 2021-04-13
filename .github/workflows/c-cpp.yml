@@ -27,7 +27,7 @@ jobs:
       with:
         file: "*.zip"
         tags: true
-        draft: true
+        draft: false
         branches: "master;dev"
         verbose: true
       
