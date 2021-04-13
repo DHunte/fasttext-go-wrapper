@@ -20,11 +20,12 @@ jobs:
       uses: zendesk/action-create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "*.a;*.o;"
+        file: "./fastText/lib/*.a;./fastText/obj/*.o;"
         delete_file: "random-name-*.txt"
         tags: false
         draft: true
