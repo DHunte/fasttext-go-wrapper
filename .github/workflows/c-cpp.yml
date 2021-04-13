@@ -14,15 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: move wrapper
-      run: mv fastText fastText2
-    - uses: actions/checkout@master
-      with:
-        name: facebookresearch/fastText
-        ref: refs/heads/release
+    - name: Clone facebook fasttext
+      run: git clone https://github.com/facebookresearch/fastText facebook
     - name: make facebook fasttext
-      run: cd fastText && ls && make && mv -v ./lib/* ../fastText2/lib && mv -v ./obj/* ../fastText2/obj &&  rm -r fastText
+      run: cd facebook && ls && make && mv -v ./lib/* ../fastText/lib && mv -v ./obj/* ../fastText/obj &&  rm -r fastText  
     - name: cd to fasttext wrapper
-      run: cd fastText2 && ls && make && cd .. && zip -r complete.zip fastText2 && rm -r fastText2
+      run: cd fastText && ls && make && cd .. && zip -r complete.zip fastText && rm -r fastText
     - name: Create Release
       id: create_release
       uses: zendesk/action-create-release@v1
