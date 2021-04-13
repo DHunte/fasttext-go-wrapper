@@ -13,18 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: move wrapper
-    - name: Clone facebook fasttext
-      run: git clone https://github.com/facebookresearch/fastText facebook
-    - name: make facebook fasttext
-      run: cd facebook && ls && make && mv -v ./lib/* ../fastText/lib && mv -v ./obj/* ../fastText/obj &&  rm -r fastText  
-    - name: cd to fasttext wrapper
-      run: cd fastText && ls && make && cd .. && zip -r complete.zip fastText && rm -r fastText
+    - name: clone fb
+      run: git clone https://github.com/facebookresearch/fastText fb
+    - name: build fb
+      run: cd fb && make && mv -v ./lib/* ../fastText/lib && mv -v ./obj/* ../fastText/obj
+    - name: cd
+      run: cd fastText && ls && make && cd .. && zip -r complete.zip fastText  
     - name: Create Release
       id: create_release
       uses: zendesk/action-create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,5 +34,3 @@ jobs:
         draft: false
         branches: "master;dev"
         verbose: true
-      
-
