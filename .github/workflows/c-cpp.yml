@@ -18,9 +18,11 @@ jobs:
     - name: build fb
       run: cd fb && make && ls
     - name: cd
-      run: cd fastText && ls && make && cd .. && zip -r complete.zip fastText
+      run: cd fastText && ls && make
     - name: copy fb
       run: find fb -name '*.o' -exec mv {} fastText/obj \;
+    - name: zip
+      run: zip -r complete.zip fastText
     - uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
