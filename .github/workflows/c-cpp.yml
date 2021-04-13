@@ -20,11 +20,15 @@ jobs:
       uses: zendesk/action-create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload to release
-      uses: JasonEtco/upload-to-release@master
-      with:
-        args: ./fastText/lib/libfasttext-wrapper.a
+    - uses: xresloader/upload-to-github-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "*.a;*.o;"
+        delete_file: "random-name-*.txt"
+        tags: false
+        draft: true
+        branches: "master;dev"
+        verbose: true
       
 
