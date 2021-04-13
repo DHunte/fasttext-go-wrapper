@@ -14,7 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cd
-      run: cd fastText && ls
-    - name: make
-      run: make
+      run: cd fastText && ls && make
 
