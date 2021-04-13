@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cd
-      run: cd fastText && ls && make 
+      run: cd fastText && ls && make && cd .. && zip -r complete.zip fastText  
     - name: Create Release
       id: create_release
       uses: zendesk/action-create-release@v1
@@ -25,9 +25,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "./fastText/lib/*.a;./fastText/obj/*.o;"
-        delete_file: "random-name-*.txt"
-        tags: false
+        file: "*.zip"
+        tags: true
         draft: true
         branches: "master;dev"
         verbose: true
