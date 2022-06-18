@@ -6,6 +6,7 @@ package main
 // int ft_predict(char *query, float *prob, char *buf, int buf_size);
 // int ft_get_vector_dimension();
 // int ft_get_sentence_vector(char* query_in, float* vector, int vector_size);
+// void ft_run(int argc, char** argv);
 import "C"
 
 import (
@@ -32,9 +33,21 @@ type Model struct {
 	isInitialized bool
 }
 
+func Train(parameters []string) string {
+	parameters = append([]string{"placeholder"}, parameters...)
+	argv := make([]*C.char, len(parameters))
+	for i, s := range parameters {
+		cs := C.CString(s)
+		defer C.free(unsafe.Pointer(cs))
+		argv[i] = cs
+	}
+	C.ft_run(C.int(len(argv)), &argv[0])
+	return ""
+}
+
 // New should be used to instantiate the model.
 // FastTest needs some initialization for the model binary located on `file`.
-func New(file string) (*Model, error) {
+func ModelNew(file string) (*Model, error) {
 
 	status := C.ft_load_model(C.CString(file))
 
@@ -48,10 +61,10 @@ func New(file string) (*Model, error) {
 }
 
 // Predict the `keyword`
-func (m *Model) Predict(keyword string) error {
+func (m *Model) Predict(keyword string) (error, string, float64) {
 
 	if !m.isInitialized {
-		return errors.New("The FastText model needs to be initialized first. It's should be done inside the `New()` function")
+		return errors.New("The FastText model needs to be initialized first. It's should be done inside the `New()` function"), "", 0.0
 	}
 
 	resultSize := 32
@@ -66,7 +79,7 @@ func (m *Model) Predict(keyword string) error {
 		C.int(resultSize),
 	)
 	if status != 0 {
-		return fmt.Errorf("Exception when predicting `%s`", keyword)
+		return fmt.Errorf("Exception when predicting `%s`", keyword), "", 0.0
 	}
 
 	// Here's the result from C
@@ -76,7 +89,7 @@ func (m *Model) Predict(keyword string) error {
 
 	C.free(unsafe.Pointer(result))
 
-	return nil
+	return nil, label, prob
 }
 
 // GetSentenceVector the `keyword`
