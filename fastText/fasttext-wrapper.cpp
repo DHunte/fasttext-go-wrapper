@@ -13,6 +13,7 @@
 #include <fastText/autotune.h>
 #include <fasttext-wrapper.hpp>
 #include <fstream>
+#include <iomanip>
 using namespace fasttext;
 
 extern "C" {
