@@ -6,6 +6,10 @@
 
 extern "C" {
     
+    //Execute fasttext based on input commands
+    void ft_run(int argc, char** argv);
+
+
     /**
      * Initialize the fasttext model located on `path`
      * returns 0 on success
