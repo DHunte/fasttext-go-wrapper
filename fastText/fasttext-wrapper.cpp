@@ -25,9 +25,51 @@ extern "C" {
         return (0 == str.compare(str.length() - 1, 1, "\n"));
     };
 
+
+    void printUsage() {
+    std::cerr
+        << "usage: fasttext <command> <args>\n\n"
+        << "The commands supported by fasttext are:\n\n"
+        << "  supervised              train a supervised classifier\n"
+        << "  quantize                quantize a model to reduce the memory "
+            "usage\n"
+        << "  test                    evaluate a supervised classifier\n"
+        << "  test-label              print labels with precision and recall "
+            "scores\n"
+        << "  predict                 predict most likely labels\n"
+        << "  predict-prob            predict most likely labels with "
+            "probabilities\n"
+        << "  skipgram                train a skipgram model\n"
+        << "  cbow                    train a cbow model\n"
+        << "  print-word-vectors      print word vectors given a trained model\n"
+        << "  print-sentence-vectors  print sentence vectors given a trained "
+            "model\n"
+        << "  print-ngrams            print ngrams given a trained model and "
+            "word\n"
+        << "  nn                      query for nearest neighbors\n"
+        << "  analogies               query for analogies\n"
+        << "  dump                    dump arguments,dictionary,input/output "
+            "vectors\n"
+        << std::endl;
+    }
+
+    void printQuantizeUsage() {
+    std::cerr << "usage: fasttext quantize <args>" << std::endl;
+    }
+
     void printTestUsage() {
     std::cerr
         << "usage: fasttext test <model> <test-data> [<k>] [<th>]\n\n"
+        << "  <model>      model filename\n"
+        << "  <test-data>  test data filename (if -, read from stdin)\n"
+        << "  <k>          (optional; 1 by default) predict top k labels\n"
+        << "  <th>         (optional; 0.0 by default) probability threshold\n"
+        << std::endl;
+    }
+
+    void printPredictUsage() {
+    std::cerr
+        << "usage: fasttext predict[-prob] <model> <test-data> [<k>] [<th>]\n\n"
         << "  <model>      model filename\n"
         << "  <test-data>  test data filename (if -, read from stdin)\n"
         << "  <k>          (optional; 1 by default) predict top k labels\n"
@@ -43,6 +85,25 @@ extern "C" {
         << "  <k>          (optional; 1 by default) predict top k labels\n"
         << "  <th>         (optional; 0.0 by default) probability threshold\n"
         << std::endl;
+    }
+
+    void printPrintWordVectorsUsage() {
+    std::cerr << "usage: fasttext print-word-vectors <model>\n\n"
+                << "  <model>      model filename\n"
+                << std::endl;
+    }
+
+    void printPrintSentenceVectorsUsage() {
+    std::cerr << "usage: fasttext print-sentence-vectors <model>\n\n"
+                << "  <model>      model filename\n"
+                << std::endl;
+    }
+
+    void printPrintNgramsUsage() {
+    std::cerr << "usage: fasttext print-ngrams <model> <word>\n\n"
+                << "  <model>      model filename\n"
+                << "  <word>       word to print\n"
+                << std::endl;
     }
 
    void test(const std::vector<std::string>& args) {
@@ -212,4 +273,9 @@ extern "C" {
         memcpy(vector_out, svec.data(), vector_size*sizeof(float));
         return 0;
     }
+
+
+ 
+
+
 }
