@@ -5,7 +5,7 @@ package main
 // int ft_load_model(char *path);
 // int ft_predict(char *query, float *prob, char *buf, int buf_size);
 // int ft_get_vector_dimension();
-// int ft_get_sentence_vector(char* query_in, float* vector, int vector_size)
+// int ft_get_sentence_vector(char* query_in, float* vector, int vector_size);
 import "C"
 
 import (
