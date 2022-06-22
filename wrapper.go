@@ -5,8 +5,7 @@ package main
 // int ft_load_model(char *path);
 // int ft_predict(char *query, float *prob, char *buf, int buf_size);
 // int ft_get_vector_dimension();
-// int ft_get_sentence_vector(char* query_in, float* vector, int vector_size);
-// void ft_run(int argc, char** argv);
+// int ft_get_sentence_vector(char* query_in, float* vector, int vector_size)
 import "C"
 
 import (
@@ -33,7 +32,7 @@ type Model struct {
 	isInitialized bool
 }
 
-func Train(parameters []string) string {
+/*func Train(parameters []string) string {
 	parameters = append([]string{"placeholder"}, parameters...)
 	argv := make([]*C.char, len(parameters))
 	for i, s := range parameters {
@@ -43,11 +42,11 @@ func Train(parameters []string) string {
 	}
 	C.ft_run(C.int(len(argv)), &argv[0])
 	return ""
-}
+}*/
 
 // New should be used to instantiate the model.
 // FastTest needs some initialization for the model binary located on `file`.
-func ModelNew(file string) (*Model, error) {
+func NewModel(file string) (*Model, error) {
 
 	status := C.ft_load_model(C.CString(file))
 
